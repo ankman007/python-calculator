@@ -1,1 +1,1 @@
-# python-calculator
+Simple CLI based calculator made in Python. 
