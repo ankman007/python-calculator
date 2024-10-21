@@ -2,3 +2,4 @@
 /dist
 /build
 /simple_calculator.egg-info
+__pycache__/
