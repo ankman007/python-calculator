@@ -1,26 +1,41 @@
-import unittest
+import pytest
 from calculator import add, subtract, divide, multiply
 
-class TestCalculator(unittest.TestCase):
-    def test_add(self):
-        self.assertEqual(add(-44, -99), -143)
-        self.assertEqual(add(1, 120), 121)
-        self.assertEqual(add(-1, -12), -13)
-        
-    def test_subtract(self):
-        self.assertEqual(subtract(1, 12), -11)
-        self.assertEqual(subtract(1, 18), -17)
-        self.assertEqual(subtract(101, -9), 110)
-        
-    def test_mul(self):
-        self.assertEqual(multiply(6, 99), 594)
-        self.assertEqual(multiply(22, 0), 0)
-        self.assertEqual(multiply(-1, -13), 13)
-    
-    def test_div(self):
-        self.assertEqual(divide(9, 6), 1.5)
-        self.assertEqual(divide(6, 2), 3)
-        self.assertEqual(divide(5, 2), 2.5)
+@pytest.mark.parametrize("a, b, expected", [
+    (-44, -99, -143),
+    (1, 120, 121),
+    (-1, -12, -13),
+    (0, 0, 0),  
+])
+def test_add(a, b, expected):
+    assert add(a, b) == expected
 
-if __name__ == '__main__': 
-    unittest.main()
+@pytest.mark.parametrize("a, b, expected", [
+    (1, 12, -11),
+    (1, 18, -17),
+    (101, -9, 110),
+    (0, 0, 0),  
+])
+def test_subtract(a, b, expected):
+    assert subtract(a, b) == expected
+
+@pytest.mark.parametrize("a, b, expected", [
+    (6, 99, 594),
+    (22, 0, 0),  
+    (-1, -13, 13),
+    (0, 100, 0),  
+])
+def test_multiply(a, b, expected):
+    assert multiply(a, b) == expected
+
+@pytest.mark.parametrize("a, b, expected", [
+    (9, 6, 1.5),
+    (6, 2, 3),
+    (5, 2, 2.5),
+])
+def test_divide(a, b, expected):
+    assert divide(a, b) == expected
+
+def test_divide_by_zero():
+    with pytest.raises(ZeroDivisionError):
+        divide(10, 0)
