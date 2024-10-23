@@ -1,5 +1,5 @@
 import pytest
-from calculator import add, subtract, divide, multiply
+from app.calculator import add, subtract, divide, multiply
 
 @pytest.mark.parametrize("a, b, expected", [
     (-44, -99, -143),
